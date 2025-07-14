@@ -173,8 +173,67 @@ async function processImageAttachment(message, attachment) {
   }
 }
 
+// Function to check for missed images during bot downtime
+async function checkForMissedImages() {
+  try {
+    console.log("🔍 Checking for missed images...");
+    
+    const guilds = client.guilds.cache;
+    let processedCount = 0;
+    
+    for (const guild of guilds.values()) {
+      const channels = guild.channels.cache.filter(channel => 
+        channel.isTextBased() && 
+        (!CHANNEL_ID || channel.id === CHANNEL_ID)
+      );
+      
+      for (const channel of channels.values()) {
+        try {
+          console.log(`📋 Scanning channel: ${channel.name} (${channel.id})`);
+          
+          // Fetch recent messages (last 100)
+          const messages = await channel.messages.fetch({ limit: 100 });
+          
+          for (const message of messages.values()) {
+            // Skip bot messages
+            if (message.author.bot) continue;
+            
+            // Skip messages without attachments
+            if (message.attachments.size === 0) continue;
+            
+            // Check if message already has the 🎨 reaction from our bot
+            const artReaction = message.reactions.cache.get('🎨');
+            const botReacted = artReaction?.users.cache.has(client.user.id);
+            
+            if (!botReacted) {
+              // Process each image attachment that wasn't processed
+              for (const attachment of message.attachments.values()) {
+                if (isImageFile(attachment.name)) {
+                  console.log(`🎯 Found missed image: ${attachment.name} from ${message.author.username}`);
+                  await processImageAttachment(message, attachment);
+                  processedCount++;
+                }
+              }
+            }
+          }
+        } catch (channelError) {
+          console.error(`❌ Error scanning channel ${channel.name}:`, channelError.message);
+        }
+      }
+    }
+    
+    if (processedCount > 0) {
+      console.log(`✅ Processed ${processedCount} missed image(s)`);
+    } else {
+      console.log("✅ No missed images found");
+    }
+  } catch (error) {
+    console.error("❌ Error checking for missed images:", error.message);
+  }
+}
+
 // Bot event handlers
-client.once("ready", () => {
+client.once("ready", async () => {
   console.log(`\n🤖 Family Art Bot is ready!`);
   console.log(`📋 Logged in as: ${client.user.tag}`);
   console.log(`🏠 Monitoring ${client.guilds.cache.size} server(s)`);
@@ -186,6 +245,9 @@ client.once("ready", () => {
   }
 
   console.log(`\n🎨 Ready to collect family art! 🖼️\n`);
+  
+  // Check for missed images after bot is ready
+  await checkForMissedImages();
 });
 
 client.on("messageCreate", async (message) => {
