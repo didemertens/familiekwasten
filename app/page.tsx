@@ -53,7 +53,7 @@ export default async function Page() {
                 </div>
                 <div className="flex flex-col items-center">
                   <span className="text-base font-semibold">
-                    {artwork.username}
+                    {artwork.display_name}
                   </span>
                   <span className="text-xs text-gray-400">
                     {formatDate(artwork.posted_at)}

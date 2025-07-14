@@ -100,7 +100,7 @@ async function uploadToSupabase(imageBuffer, filename) {
 // Function to save image metadata to database
 async function saveImageMetadata(imageData) {
   try {
-    console.log(`💾 Saving metadata for ${imageData.username}...`);
+    console.log(`💾 Saving metadata for ${imageData.display_name}...`);
 
     const { data, error } = await supabase
       .from("discord_images")
@@ -123,8 +123,9 @@ async function saveImageMetadata(imageData) {
 // Function to process image attachment
 async function processImageAttachment(message, attachment) {
   try {
+    const displayName = message.author.globalName || message.author.displayName || message.author.username;
     console.log(
-      `\n🎨 Processing art from ${message.author.username}: ${attachment.name}`
+      `\n🎨 Processing art from ${displayName}: ${attachment.name}`
     );
 
     // Download image
@@ -142,7 +143,7 @@ async function processImageAttachment(message, attachment) {
     // Prepare metadata
     const imageMetadata = {
       discord_user_id: message.author.id,
-      username: message.author.username,
+      display_name: displayName,
       discord_message_id: message.id,
       channel_id: message.channel.id,
       image_filename: uniqueFilename,
@@ -155,7 +156,7 @@ async function processImageAttachment(message, attachment) {
     await saveImageMetadata(imageMetadata);
 
     console.log(
-      `🎉 Successfully saved art piece: ${attachment.name} by ${message.author.username}`
+      `🎉 Successfully saved art piece: ${attachment.name} by ${displayName}`
     );
 
     // React with art palette emoji to show it was processed
@@ -197,8 +198,9 @@ client.on("messageCreate", async (message) => {
   // Check if message has attachments
   if (message.attachments.size === 0) return;
 
+  const displayName = message.author.globalName || message.author.displayName || message.author.username;
   console.log(
-    `📨 New message from ${message.author.username} with ${message.attachments.size} attachment(s)`
+    `📨 New message from ${displayName} with ${message.attachments.size} attachment(s)`
   );
 
   // Process each attachment

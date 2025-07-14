@@ -1,7 +1,7 @@
 export type DiscordImage = {
   id: number;
   discord_user_id: string;
-  username: string;
+  display_name: string;
   discord_message_id: string;
   channel_id: string;
   image_filename: string;
