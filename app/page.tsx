@@ -1,8 +1,8 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/server";
 import Image from "next/image";
 
 export default async function Page() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: artworks } = await supabase.from("discord_images").select();
 
   return (
@@ -19,7 +19,7 @@ export default async function Page() {
       {/* Gallery Grid */}
       <section className="max-w-6xl mx-auto px-6 pb-16">
         <ul role="list" className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {artworks?.map((artwork) => (
+          {artworks?.map((artwork, index) => (
             <li
               key={artwork.id}
               className="card w-full h-full flex flex-col gap-2 p-6 border-4 rounded-3xl"
@@ -31,6 +31,7 @@ export default async function Page() {
                   fill
                   className="custom-img gallery-card__image rounded-2xl"
                   sizes="(max-width: 640px) 100vw, 50vw"
+                  priority={index < 4}
                 />
               </div>
               <div className="flex flex-col items-center">

@@ -23,7 +23,7 @@ export default function KitchenSinkPage() {
               <strong>bold text</strong>.
             </p>
             <p>
-              Here's some <code>inline code</code> and a code block:
+              Here&apos;s some <code>inline code</code> and a code block:
             </p>
             <pre>
               <code>function example() {`return "Hello, world!"`}</code>
@@ -133,7 +133,7 @@ export default function KitchenSinkPage() {
                 placeholder="Enter your email"
               />
               <p className="form-help">
-                We'll never share your email with anyone else.
+                We&apos;ll never share your email with anyone else.
               </p>
             </div>
 
