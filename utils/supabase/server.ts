@@ -1,8 +1,8 @@
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
 export const createClient = async () => {
   const cookieStore = await cookies();
@@ -24,4 +24,22 @@ export const createClient = async () => {
       },
     },
   });
+};
+
+// Helper function to get signed URLs for images
+export const getSignedImageUrl = async (
+  imagePath: string,
+  expiresIn: number = 3600
+) => {
+  const supabase = await createClient();
+  const { data, error } = await supabase.storage
+    .from("discord-images")
+    .createSignedUrl(imagePath, expiresIn);
+
+  if (error) {
+    console.error("Error creating signed URL:", error);
+    return null;
+  }
+
+  return data.signedUrl;
 };

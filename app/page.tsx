@@ -1,9 +1,21 @@
-import { createClient } from "@/utils/server";
+import { createClient, getSignedImageUrl } from "@/utils/supabase/server";
 import Image from "next/image";
 
 export default async function Page() {
   const supabase = await createClient();
   const { data: artworks } = await supabase.from("discord_images").select();
+
+  // Get signed URLs for all images
+  const artworksWithSignedUrls = await Promise.all(
+    // TODO change any to type
+    artworks?.map(async (artwork: any) => {
+      const signedUrl = await getSignedImageUrl(artwork.image_filename);
+      return {
+        ...artwork,
+        signed_url: signedUrl || artwork.image_url, // fallback to original if signed URL fails
+      };
+    }) || []
+  );
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -19,14 +31,15 @@ export default async function Page() {
       {/* Gallery Grid */}
       <section className="max-w-6xl mx-auto px-6 pb-16">
         <ul role="list" className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {artworks?.map((artwork, index) => (
+          {/* TODO change any to type */}
+          {artworksWithSignedUrls?.map((artwork: any, index: number) => (
             <li
               key={artwork.id}
               className="card w-full h-full flex flex-col gap-2 p-6 border-4 rounded-3xl"
             >
               <div className="card__image-container unset-img mb-2">
                 <Image
-                  src={artwork.image_url}
+                  src={artwork.signed_url}
                   alt={artwork.image_filename}
                   fill
                   className="custom-img gallery-card__image rounded-2xl"
@@ -39,7 +52,11 @@ export default async function Page() {
                   {artwork.username}
                 </span>
                 <span className="text-xs text-gray-400">
-                  {new Date(artwork.posted_at).toLocaleString()}
+                  {new Date(artwork.posted_at).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
                 </span>
               </div>
             </li>

@@ -8,14 +8,14 @@ const { v4: uuidv4 } = require("uuid");
 // Configuration
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const CHANNEL_ID = process.env.CHANNEL_ID; // Optional: specific channel only
 
 // Validate environment variables
-if (!DISCORD_TOKEN || !SUPABASE_URL || !SUPABASE_ANON_KEY) {
+if (!DISCORD_TOKEN || !SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   console.error("❌ Missing required environment variables!");
   console.error(
-    "Please check your .env file has DISCORD_TOKEN, SUPABASE_URL, and SUPABASE_ANON_KEY"
+    "Please check your .env file has DISCORD_TOKEN, SUPABASE_URL, and SUPABASE_SERVICE_ROLE_KEY"
   );
   process.exit(1);
 }
@@ -29,8 +29,8 @@ const client = new Client({
   ],
 });
 
-// Initialize Supabase client
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Initialize Supabase client with service role key for admin access
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 // Supported image formats
 const IMAGE_EXTENSIONS = [
