@@ -1,33 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Familiekwasten
+
+A photo gallery showcasing the artwork of "Familiekwasten" - a creative family art project. This Next.js application features a dynamic photo gallery powered by Supabase for storage and database management, with an integrated Discord bot for community interaction.
+
+## Features
+
+- **Photo Gallery**: Dynamic display of Familiekwasten artwork
+- **Supabase Integration**: Database and storage for artwork metadata and images
+- **Discord Bot**: Community engagement through Discord integration (located in `/bot`)
+- **Responsive Design**: Modern CSS architecture with utility-first approach
+
+## Tech Stack
+
+- **Frontend**: Next.js with TypeScript
+- **Database & Storage**: Supabase
+- **Styling**: Custom CSS with utility classes
+- **Bot**: Discord.js (in `/bot` directory)
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── app/                 # Next.js app directory
+├── bot/                 # Discord bot implementation
+├── styles/              # CSS architecture
+│   ├── blocks/          # Component-specific styles
+│   ├── composition/     # Layout utilities
+│   ├── exceptions/      # Style overrides
+│   ├── global/          # Global styles and tokens
+│   └── utilities/       # Utility classes
+├── utils/               # Shared utilities
+│   └── supabase/        # Supabase client configuration
+└── public/              # Static assets
+```
 
-## Learn More
+## Discord Bot
 
-To learn more about Next.js, take a look at the following resources:
+The Discord bot is located in the `/bot` directory and provides community features for the Familiekwasten project. To run the bot:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cd bot
+pnpm install
+pnpm start
+```
 
 ## Deploy on Vercel
 
