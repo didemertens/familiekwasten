@@ -1,0 +1,26 @@
+/* Stack - vertical layout with consistent spacing */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap, var(--space-md));
+}
+
+.stack--sm {
+  --stack-gap: var(--space-sm);
+}
+
+.stack--lg {
+  --stack-gap: var(--space-lg);
+}
+
+.stack--xl {
+  --stack-gap: var(--space-xl);
+}
+
+.stack--center {
+  align-items: center;
+}
+
+.stack--stretch {
+  align-items: stretch;
+}

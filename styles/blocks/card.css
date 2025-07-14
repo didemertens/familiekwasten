@@ -1,0 +1,20 @@
+.card__image-container {
+  position: relative;
+  height: 50vh;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.card__image {
+  object-fit: contain;
+}
+
+.unset-img {
+  position: relative;
+  height: 50vh;
+  max-width: 100%;
+  max-height: 100%;
+}
+.custom-img {
+  object-fit: contain;
+}

@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
+/** @type {import('next').NextConfig} */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseDomain = supabaseUrl ? new URL(supabaseUrl).hostname : undefined;
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: supabaseDomain ? [supabaseDomain] : [],
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

@@ -1,0 +1,40 @@
+/* Design tokens */
+:root {
+  /* Colors */
+  --color-primary: #d9376e;
+  --color-secondary: #000000;
+  --color-accent: #d9376e;
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-muted: #ffffff;
+  --color-border: #000000;
+
+  /* Typography */
+  --font-family-sans: system-ui, -apple-system, sans-serif;
+  --font-family-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+  
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --border-radius: 0.125rem;
+  --border-width: 3px;
+  --shadow: none;
+}
+

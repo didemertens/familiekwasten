@@ -1,0 +1,29 @@
+{
+  "name": "family-art-bot",
+  "version": "1.0.0",
+  "description": "Family art Discord bot that saves images to Supabase",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "@supabase/supabase-js": "^2.39.7",
+    "axios": "^1.6.7",
+    "uuid": "^9.0.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "supabase",
+    "family",
+    "art"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

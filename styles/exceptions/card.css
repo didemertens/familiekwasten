@@ -1,0 +1,53 @@
+/* Card exceptions - data attribute variations */
+.card[data-variant="elevated"] {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.card[data-variant="outlined"] {
+  border: 2px solid var(--color-border);
+  box-shadow: none;
+}
+
+.card[data-variant="ghost"] {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.card[data-size="compact"] {
+  padding: var(--space-md);
+}
+
+.card[data-size="spacious"] {
+  padding: var(--space-xl);
+}
+
+.card[data-state="disabled"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.card[data-state="loading"] {
+  position: relative;
+  overflow: hidden;
+}
+
+.card[data-state="loading"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

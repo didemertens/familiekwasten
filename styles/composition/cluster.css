@@ -1,0 +1,28 @@
+/* Cluster - flexbox for grouped content */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cluster-gap, var(--space-md));
+  justify-content: var(--cluster-justify, flex-start);
+  align-items: var(--cluster-align, center);
+}
+
+.cluster--center {
+  --cluster-justify: center;
+}
+
+.cluster--space-between {
+  --cluster-justify: space-between;
+}
+
+.cluster--end {
+  --cluster-justify: flex-end;
+}
+
+.cluster--baseline {
+  --cluster-align: baseline;
+}
+
+.cluster--stretch {
+  --cluster-align: stretch;
+}
